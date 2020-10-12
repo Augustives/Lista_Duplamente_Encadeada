@@ -13,7 +13,9 @@ class ListaDE:
     def inserirAntesAtual(self, valor):
         novo = Nodo(valor)
 
-        if self.vazia():
+        if self.cheia():
+            print('Lista Cheia.')
+        elif self.vazia():
             self.__cursor.atual = novo
             self.__elementos += 1
         elif self.__cursor.atual.ant is None:
@@ -30,7 +32,9 @@ class ListaDE:
     def inserirPosAtual(self, valor):
         novo = Nodo(valor)
 
-        if self.vazia():
+        if self.cheia():
+            print('Lista Cheia.')
+        elif self.vazia():
             self.__cursor.atual = novo
             self.__elementos += 1
         elif self.__cursor.atual.prox is None:
@@ -46,7 +50,9 @@ class ListaDE:
     def inserirFim(self, valor):
         novo = Nodo(valor)
 
-        if self.vazia():
+        if self.cheia():
+            print('Lista Cheia.')
+        elif self.vazia():
             self.__cursor.atual = novo
             self.__elementos += 1
         else:
@@ -58,7 +64,9 @@ class ListaDE:
     def inserirFrente(self, valor):
         novo = Nodo(valor)
 
-        if self.vazia():
+        if self.cheia():
+            print('Lista Cheia.')
+        elif self.vazia():
             self.__cursor.atual = novo
             self.__elementos += 1
         else:
@@ -68,22 +76,18 @@ class ListaDE:
             self.__elementos += 1
 
     def inserirNaPosicao(self, k, valor):
-        novo = Nodo(valor)
         self.__cursor.irParaPrimeiro()
 
-        if k >= self.__elementos:
+        if self.cheia():
+            print('Lista Cheia.')
+        elif k >= self.__elementos:
             print('Posicao inexistente.')
         else:
             self.__cursor.avancarKPosicoes(k)
-
-        if self.vazia():
-            self.__cursor.atual = novo
-            self.__elementos += 1
-        else:
-            self.__cursor.atual.valor = valor
+            self.inserirPosAtual(valor)
 
     def excluirAtual(self):
-        pass
+
 
     def excluirPrim(self):
         pass
