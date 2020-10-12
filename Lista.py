@@ -70,7 +70,8 @@ class ListaDE:
     def inserirNaPosicao(self, k, valor):
         novo = Nodo(valor)
         self.__cursor.irParaPrimeiro()
-        if k > self.__elementos:
+
+        if k >= self.__elementos:
             print('Posicao inexistente.')
         else:
             self.__cursor.avancarKPosicoes(k)
@@ -78,8 +79,8 @@ class ListaDE:
         if self.vazia():
             self.__cursor.atual = novo
             self.__elementos += 1
-        elif self.__cursor.atual.prox is None:
-
+        else:
+            self.__cursor.atual.valor = valor
 
     def excluirAtual(self):
         pass
