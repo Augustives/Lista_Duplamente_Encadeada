@@ -8,7 +8,7 @@ class ListaDE:
         self.__elementos = 0
 
     def acessarAtual(self):
-        return self.__cursor.atual
+        return self.__cursor.atual.valor
 
     def inserirAntesAtual(self, valor):
         novo = Nodo(valor)
@@ -28,24 +28,8 @@ class ListaDE:
             novo.prox = self.__cursor.atual
             self.__elementos += 1
 
-
     def inserirPosAtual(self, valor):
-        novo = Nodo(valor)
-
-        if self.cheia():
-            print('Lista Cheia.')
-        elif self.vazia():
-            self.__cursor.atual = novo
-            self.__elementos += 1
-        elif self.__cursor.atual.prox is None:
-            self.__cursor.atual.prox = novo
-            novo.ant = self.__cursor.atual
-        else:
-            self.__cursor.atual.prox.ant = novo
-            novo.prox = self.__cursor.atual.prox
-            self.__cursor.atual.prox = novo
-            novo.ant = self.__cursor.atual
-            self.__elementos += 1
+        self.inserirAntesAtual(valor)
 
     def inserirFim(self, valor):
         novo = Nodo(valor)
@@ -80,23 +64,48 @@ class ListaDE:
 
         if self.cheia():
             print('Lista Cheia.')
-        elif k >= self.__elementos:
+        elif k >= self.__elementos or k < 0:
             print('Posicao inexistente.')
         else:
             self.__cursor.avancarKPosicoes(k)
-            self.inserirPosAtual(valor)
+            self.inserirAntesAtual(valor)
 
     def excluirAtual(self):
-
+        if self.vazia():
+            print('Lista vazia.')
+        elif self.__cursor.atual.ant is None:
+            self.__cursor.atual.prox.ant = None
+            self.__cursor.atual = self.__cursor.atual.prox
+        elif self.__cursor.atual.prox is None:
+            self.__cursor.atual.ant.prox = None
+            self.__cursor.atual = self.__cursor.atual.ant
+        else:
+            self.__cursor.atual.ant.prox = self.__cursor.atual.prox
+            self.__cursor.atual.prox.ant = self.__cursor.atual.ant
+            self.__cursor.atual = self.__cursor.atual.prox
+            self.__elementos -= 1
 
     def excluirPrim(self):
-        pass
+        self.__cursor.irParaPrimeiro()
+        self.excluirAtual()
 
     def excluirUlt(self):
-        pass
+        self.__cursor.irParaUltimo()
+        self.excluirAtual()
 
     def excluirElem(self, valor):
-        pass
+        self.__cursor.irParaPrimeiro()
+        x = self.__cursor.atual
+
+        while x.valor != valor:
+            if self.__cursor.atual.prox is None:
+                print('Elemento Inexistente')
+                break
+            else:
+                self.__cursor.avancarKPosicoes(2)
+                x = self.__cursor.atual
+
+        self.excluirAtual()
 
     def excluirDaPos(self):
         pass
