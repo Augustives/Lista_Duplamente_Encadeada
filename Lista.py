@@ -8,7 +8,7 @@ class ListaDE:
         self.__elementos = 0
 
     def acessarAtual(self):
-        return self.__cursor.atual.valor
+        return self.__cursor.atual
 
     def inserirAntesAtual(self, valor):
         novo = Nodo(valor)
@@ -100,15 +100,23 @@ class ListaDE:
         while x.valor != valor:
             if self.__cursor.atual.prox is None:
                 print('Elemento Inexistente')
-                break
+                return None
             else:
                 self.__cursor.avancarKPosicoes(2)
                 x = self.__cursor.atual
 
         self.excluirAtual()
 
-    def excluirDaPos(self):
-        pass
+    def excluirDaPos(self, k):
+        self.__cursor.irParaPrimeiro()
+
+        if self.vazia():
+            print('Lista Vazia.')
+        elif k >= self.__elementos or k < 0:
+            print('Posicao inexistente.')
+        else:
+            self.__cursor.avancarKPosicoes(k)
+            self.excluirAtual()
 
     def vazia(self):
         return self.__elementos == 0
@@ -117,7 +125,45 @@ class ListaDE:
         return self.__elementos == self.__limite
 
     def contem(self, valor):
-        pass
+        self.__cursor.irParaPrimeiro()
+        x = self.__cursor.atual
+
+        while x.valor != valor:
+            if self.__cursor.atual.prox is None:
+                print('False')
+                return False
+            else:
+                self.__cursor.avancarKPosicoes(2)
+                x = self.__cursor.atual
+        print('True')
+        return True
 
     def posicaoDe(self, valor):
-        pass
+        self.__cursor.irParaPrimeiro()
+        x = self.__cursor.atual
+        posicao = 1
+
+        while x.valor != valor:
+            if self.__cursor.atual.prox is None:
+                print('Elemento Inexistente')
+                return None
+            else:
+                self.__cursor.avancarKPosicoes(2)
+                x = self.__cursor.atual
+                posicao += 1
+        print('Posicao')
+        return posicao
+
+    def Buscar(self, valor):
+        self.__cursor.irParaPrimeiro()
+        x = self.__cursor.atual
+
+        while x.valor != valor:
+            if self.__cursor.atual.prox is None:
+                print('Elemento Inexistente')
+                return False
+            else:
+                self.__cursor.avancarKPosicoes(2)
+                x = self.__cursor.atual
+        print('Achou Elemento')
+        return True
